@@ -1,8 +1,10 @@
 var webdriverio = require('webdriverio');
-var fs = require('fs-extra');
 var targz = require('tar.gz');
+var Bluebird = require('bluebird');
+var fs = Bluebird.promisifyAll(require('fs-extra'));
 var git = require('git-rev');
 var request = require('request');
+var gitInfo = require('../libs/gitInfo');
 
 var config = require('../config.js');
 var pageTests = require('./pageTests');
@@ -30,13 +32,23 @@ if (config.localBrowser) {
   };
 }
 
-fs.removeSync(config.screenshotRoot);
-var client = webdriverio.remote(capabilities);
+var gitInfo;
 
-pageTests(client)
+fs.removeAsync(config.screenshotRoot)
 .then(function() {
-  // upload();
+  return gitInfo.getBranchAndSha();
+})
+.then(function(info) {
+  gitInfo = info;
+
+  var client = webdriverio.remote(capabilities);
+  return pageTests(client);
+})
+.then(function() {
+  console.log('done', gitInfo);
 });
+
+return;
 
 // upload();
 // startBuild();
