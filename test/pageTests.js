@@ -13,7 +13,7 @@ function runTests(client) {
 
     client
       .init()
-      .url('http://localhost:8982')
+      .url(config.websiteUrl)
       .webdrivercss('elements', [{
         name: 'button',
         elem: '#button'
