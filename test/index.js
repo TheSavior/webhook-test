@@ -37,10 +37,11 @@ var branchInfo;
 fs.removeAsync(config.screenshotRoot)
 .then(function() {
   if (process.env.BRANCH) {
-    return {
+    console.log('env', process.env.BRANCH, process.env.COMMIT);
+    /*return {
       branch: process.env.BRANCH,
       sha: process.env.COMMIT
-    };
+    };*/
   }
 
   return gitInfo.getBranchAndSha();

@@ -11,8 +11,8 @@ node_js:
 
 env:
   global:
-    - BRANCH=%{branch}
-    - COMMIT=%{commit}
+    - BRANCH=$branch
+    - COMMIT=$commit
 
 notifications:
   email: false
