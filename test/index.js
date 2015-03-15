@@ -19,8 +19,9 @@ if (config.localBrowser) {
   };
 } else {
   capabilities = {
-    host: 'hub.browserstack.com',
-    port: 8010,
+    host: 'ondemand.saucelabs.com',
+    // host: 'hub.browserstack.com',
+    port: 80,
     user: process.env.SAUCE_USERNAME,
     key: process.env.SAUCE_ACCESS_KEY,
     desiredCapabilities: {

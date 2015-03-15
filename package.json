@@ -23,6 +23,6 @@
   "scripts": {
     "postinstall": "selenium-standalone install",
     "start": "node main.js",
-    "test": "grunt test"
+    "test": "grunt serve"
   }
 }
