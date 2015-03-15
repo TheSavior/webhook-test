@@ -1,6 +1,13 @@
 language: node_js
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install imagemagick graphicsmagick libcairo2-dev
+
 script: "npm test"
+
 node_js:
   - node
+
 notifications:
   email: false
