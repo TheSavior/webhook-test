@@ -8,7 +8,7 @@ function runTests(client) {
     webdrivercss.init(client, {
       screenshotRoot: config.screenshotRoot,
       failedComparisonsRoot: 'failed/',
-      screenWidth: [700, 1300]
+      screenWidth: [700]//, 1300]
     });
 
     client
@@ -17,10 +17,10 @@ function runTests(client) {
       .webdrivercss('elements', [{
         name: 'button',
         elem: '#button'
-      }, {
+      }/*, {
         name: 'form',
         elem: '#form'
-      }])
+      }*/])
       .call(resolve)
       .end();
   });

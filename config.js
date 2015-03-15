@@ -2,16 +2,16 @@ var path = require('path');
 
 console.log(__dirname);
 
-var browser = 'Chrome';
+var browser = process.env.BROWSER || 'Chrome';
 
 var Config = {
-  localBrowser: true,
+  localBrowser: false,
   browser: browser,
-  browserVersion: 30,
-  screenshotRoot: path.join(__dirname, 'screenshots', browser),
+  browserVersion: process.env.BROWSER_VERSION,
   browserstackUser: process.env.BROWSERSTACK_USER,
   browserstackKey: process.env.BROWSERSTACK_KEY,
-  api: 'http://localhost:9000/api/',
+  screenshotRoot: path.join(__dirname, 'screenshots', browser),
+  api: 'https://visualdiff.ngrok.com/api/',
   websiteUrl: 'http://localhost:8982'
 };
 
