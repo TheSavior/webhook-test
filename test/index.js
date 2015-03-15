@@ -24,11 +24,14 @@ if (config.localBrowser) {
     port: 80,
     user: process.env.SAUCE_USERNAME,
     key: process.env.SAUCE_ACCESS_KEY,
-    'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
+    runsWithSauce: true,
+    waitForTimeout: 1000,
     desiredCapabilities: {
       'browser': config.browser,
       'version': config.browserVersion,
-      'os': 'windows'
+      'os': 'windows',
+      'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
+      'idle-timeout': 900,
       /*'browserstack.debug': 'true',
       'browserstack.user': config.browserstackUser,
       'browserstack.key': config.browserstackKey*/
