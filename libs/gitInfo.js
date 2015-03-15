@@ -4,7 +4,7 @@ var exec = require('child_process').exec;
 
 function execute(cmd, cb) {
   exec(cmd, function (err, stdout, stderr) {
-    cb(stdout);
+    cb(stdout.split('\n').join(''));
   });
 }
 

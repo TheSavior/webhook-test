@@ -45,7 +45,7 @@ fs.removeAsync(config.screenshotRoot)
     return gitInfo.getCommonAncestor(branchInfo.sha, 'master')
     .then(function(ancestor) {
       return startBuild({
-        head: branchInfo.head,
+        head: branchInfo.sha,
         base: ancestor,
         numBrowsers: 1
       });
@@ -84,9 +84,9 @@ function upload(options) {
         url: config.api + 'upload',
       };
 
-      var r = request.post(args, function(error, httpResponse, body) {
+      var r = request.post(args, function(error, response, body) {
         if (error || response.statusCode !== 200) {
-          reject(new Error(error || body));
+          reject(error || new Error(body));
           return;
         }
 
@@ -120,7 +120,7 @@ function startBuild(options) {
 
     request(options, function(error, response, body) {
       if (error || response.statusCode !== 200) {
-        reject(new Error(err || body));
+        reject(error || new Error(body));
         return;
       }
 
