@@ -36,12 +36,19 @@ var branchInfo;
 
 fs.removeAsync(config.screenshotRoot)
 .then(function() {
+  if (process.env.BRANCH) {
+    return {
+      branch: process.env.BRANCH,
+      sha: process.env.COMMIT
+    };
+  }
+
   return gitInfo.getBranchAndSha();
 })
 .then(function(branchSha) {
   branchInfo = branchSha;
 
-  console.log('Currently at', branchInfo.branch, branchInfo.branch);
+  console.log('Currently at', branchInfo.branch, branchInfo.sha);
 
   if (branchInfo.branch !== 'master') {
     return gitInfo.getCommonAncestor(branchInfo.sha, 'master')

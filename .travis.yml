@@ -9,5 +9,10 @@ script: "npm test"
 node_js:
   - node
 
+env:
+  global:
+    - BRANCH=%{branch}
+    - COMMIT=%{commit}
+
 notifications:
   email: false
