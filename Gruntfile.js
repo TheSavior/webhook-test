@@ -4,7 +4,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     'http-server': {
       dev: {
-        port: 8982,
+        port: 8001,
         runInBackground: true
       }
     },
@@ -18,5 +18,7 @@ module.exports = function(grunt) {
 
   require('load-grunt-tasks')(grunt);
 
-  grunt.registerTask('test', ['http-server:dev', 'execute']);
+  grunt.registerTask('serve', ['http-server:dev', 'execute']);
+  grunt.registerTask('test', ['execute']);
+
 };

@@ -12,7 +12,7 @@ var Config = {
   browserstackKey: process.env.BROWSERSTACK_KEY,
   screenshotRoot: path.join(__dirname, 'screenshots', browser),
   api: 'https://visualdiff.ngrok.com/api/',
-  websiteUrl: 'http://localhost:8982'
+  websiteUrl: 'http://0.0.0.0:8001'
 };
 
 module.exports = Config;

@@ -3,9 +3,11 @@ language: node_js
 before_install:
   - sudo apt-get update
   - sudo apt-get install imagemagick graphicsmagick libcairo2-dev
+  - bundle install
+  - bundle exec rackup -p 8001 > /dev/null &
   - wget http://www.browserstack.com/browserstack-local/BrowserStackLocal-linux-x64.zip
   - unzip BrowserStackLocal-linux-x64.zip
-  - ./BrowserStackLocal $BROWSERSTACK_KEY localhost,8982,0 > /dev/null &
+  - ./BrowserStackLocal $BROWSERSTACK_KEY localhost,8001,0 > /dev/null &
   - sleep 10
 
 
