@@ -3,15 +3,14 @@ language: node_js
 before_install:
   - sudo apt-get update
   - sudo apt-get install imagemagick graphicsmagick libcairo2-dev
-  - bundle install
-  - bundle exec rackup -p 8001 > /dev/null &
-  - wget http://www.browserstack.com/browserstack-local/BrowserStackLocal-linux-x64.zip
-  - unzip BrowserStackLocal-linux-x64.zip
-  - ./BrowserStackLocal $BROWSERSTACK_KEY localhost,8001,0 > /dev/null &
-  - sleep 10
+  - "curl -O http://selenium-release.storage.googleapis.com/2.43/selenium-server-standalone-2.43.1.jar"
+  - "java -jar selenium-server-standalone-2.43.1.jar 2>&1 >/dev/null &"
+  - "2>/dev/null 1>/dev/null python -m SimpleHTTPServer 8001 &"
 
+addons:
+  sauce_connect: true
 
-script: "npm test"
+script: "sleep 5 && npm test"
 
 node_js:
   - node

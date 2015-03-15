@@ -20,14 +20,16 @@ if (config.localBrowser) {
 } else {
   capabilities = {
     host: 'hub.browserstack.com',
-    port: 80,
+    port: 8010,
+    user: process.env.SAUCE_USERNAME,
+    key: process.env.SAUCE_ACCESS_KEY,
     desiredCapabilities: {
       'browser': config.browser,
       'version': config.browserVersion,
-      'os': 'windows',
-      'browserstack.debug': 'true',
+      'os': 'windows'
+      /*'browserstack.debug': 'true',
       'browserstack.user': config.browserstackUser,
-      'browserstack.key': config.browserstackKey
+      'browserstack.key': config.browserstackKey*/
     }
   };
 }
