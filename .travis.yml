@@ -1,6 +1,7 @@
 language: node_js
 
 before_install:
+  - git fetch origin master:master
   - sudo apt-get update
   - sudo apt-get install imagemagick graphicsmagick libcairo2-dev
 

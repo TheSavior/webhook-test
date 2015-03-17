@@ -48,15 +48,19 @@ fs.removeAsync(config.screenshotRoot)
 .then(function(branchSha) {
   branchInfo = branchSha;
 
-  console.log('Currently at', branchInfo.sha);
+  console.log('Currently at', branchInfo.branch, branchInfo.sha);
 
   if (branchInfo.branch !== 'master') {
     return gitInfo.getCommonAncestor(branchInfo.sha, 'master')
     .then(function(ancestor) {
+      console.log('diffing against', ancestor);
       return startBuild({
         head: branchInfo.sha,
         base: ancestor,
         numBrowsers: 1
+      })
+      .then(function(build) {
+        console.log('Build started', build.build);
       });
     });
   }
@@ -74,6 +78,7 @@ fs.removeAsync(config.screenshotRoot)
 .catch(function(e) {
   console.error(e);
 });
+
 
 return;
 
@@ -95,7 +100,7 @@ function upload(options) {
 
       var r = request.post(args, function(error, response, body) {
         if (error || response.statusCode !== 200) {
-          reject(error || new Error(body));
+          reject(error || body);
           return;
         }
 
@@ -129,7 +134,7 @@ function startBuild(options) {
 
     request(options, function(error, response, body) {
       if (error || response.statusCode !== 200) {
-        reject(error || new Error(body));
+        reject(error || body);
         return;
       }
 

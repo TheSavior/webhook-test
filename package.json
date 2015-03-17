@@ -21,7 +21,6 @@
     "webdriverio": "^2.4.3"
   },
   "scripts": {
-    "postinstall": "selenium-standalone install",
     "start": "node main.js",
     "test": "grunt serve"
   }

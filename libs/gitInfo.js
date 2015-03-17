@@ -4,6 +4,14 @@ var exec = require('child_process').exec;
 
 function execute(cmd, cb) {
   exec(cmd, function (err, stdout, stderr) {
+    if(err) {
+      console.error('err', err);
+    }
+
+    if(stderr) {
+      console.error('err', err);
+    }
+
     cb(stdout.split('\n').join(''));
   });
 }
@@ -39,8 +47,8 @@ var GitInfo = {
   },
   getCommonAncestor: function(headSha, baseBranch) {
     return new Bluebird(function(resolve) {
-      var command = "bash -c 'diff -u <(git rev-list --all " + headSha + ") "+
-      "<(git rev-list --first-parent " + baseBranch+")' "+
+      var command = "bash -c 'diff -u <(git rev-list " + headSha + " --all) "+
+      "<(git rev-list " + baseBranch + " --first-parent)' "+
       "| sed -ne 's/^ //p' | head -1";
 
       execute(command, function(data) {
