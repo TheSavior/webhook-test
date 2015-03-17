@@ -30,7 +30,7 @@ if (config.localBrowser) {
       'browser': config.browser,
       'version': config.browserVersion,
       'os': 'windows',
-      'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
+      //'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
       'idle-timeout': 900,
       /*'browserstack.debug': 'true',
       'browserstack.user': config.browserstackUser,
