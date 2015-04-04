@@ -59,7 +59,7 @@ fs.removeAsync(config.screenshotRoot)
     .then(function(ancestor) {
         console.log('diffing against', ancestor);
         return startBuild({
-          project: config.project,
+          project: config.projectId,
           head: branchInfo.sha,
           base: ancestor,
           numBrowsers: 1
