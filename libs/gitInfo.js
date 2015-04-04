@@ -4,14 +4,6 @@ var exec = require('child_process').exec;
 
 function execute(cmd, cb) {
   exec(cmd, function (err, stdout, stderr) {
-    if(err) {
-      console.error('err', err);
-    }
-
-    if(stderr) {
-      console.error('err', err);
-    }
-
     cb(stdout.split('\n').join(''));
   });
 }
@@ -53,6 +45,16 @@ var GitInfo = {
 
       execute(command, function(data) {
         resolve(data);
+      });
+    });
+  },
+
+  isOnBranch: function(sha, branch) {
+    return new Bluebird(function(resolve) {
+      var command = 'git rev-list ' + branch + ' | grep ' + sha;
+
+      execute(command, function(data) {
+        resolve(data !== '');
       });
     });
   }

@@ -49,20 +49,25 @@ fs.removeAsync(config.screenshotRoot)
 
   console.log('Currently at', branchInfo.branch, branchInfo.sha);
 
-  return gitInfo.getCommonAncestor(branchInfo.sha, 'master')
-  .then(function(ancestor) {
-    if (ancestor !== branchInfo.sha) {
-      console.log('diffing against', ancestor);
-      return startBuild({
-        project: config.project,
-        head: branchInfo.sha,
-        base: ancestor,
-        numBrowsers: 1
-      })
-      .then(function(build) {
-        console.log('Build started', build.build);
-      });
+  return gitInfo.isOnBranch(branchInfo.sha, 'master')
+  .then(function(isOnMaster) {
+    if (isOnMaster) {
+      return;
     }
+
+    return gitInfo.getCommonAncestor(branchInfo.sha, 'master')
+    .then(function(ancestor) {
+        console.log('diffing against', ancestor);
+        return startBuild({
+          project: config.project,
+          head: branchInfo.sha,
+          base: ancestor,
+          numBrowsers: 1
+        })
+        .then(function(build) {
+          console.log('Build started', build.build);
+        });
+    });
   });
 })
 .then(function() {
