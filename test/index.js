@@ -54,6 +54,7 @@ fs.removeAsync(config.screenshotRoot)
     .then(function(ancestor) {
       console.log('diffing against', ancestor);
       return startBuild({
+        project: config.project,
         head: branchInfo.sha,
         base: ancestor,
         numBrowsers: 1
@@ -70,6 +71,7 @@ fs.removeAsync(config.screenshotRoot)
 })
 .then(function() {
   return upload({
+    project: config.project,
     sha: branchInfo.sha,
     browser: config.browser
   });
@@ -82,6 +84,7 @@ fs.removeAsync(config.screenshotRoot)
 return;
 
 function upload(options) {
+  var project = options.project;
   var sha = options.sha;
   var browser = options.browser;
 
@@ -107,6 +110,7 @@ function upload(options) {
       });
 
       var form = r.form();
+      form.append('project', project);
       form.append('sha', sha);
       form.append('browser', config.browser);
       form.append('images', fs.createReadStream(config.screenshotRoot + '.tar.gz'));
@@ -115,6 +119,7 @@ function upload(options) {
 }
 
 function startBuild(options) {
+  var project = options.project;
   var head = options.head;
   var base = options.base;
   var numBrowsers = options.numBrowsers;
@@ -125,6 +130,7 @@ function startBuild(options) {
       method: 'POST',
       json: true,
       body: {
+        project: project,
         head: head,
         base: base,
         numBrowsers: numBrowsers
