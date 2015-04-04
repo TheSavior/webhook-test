@@ -76,7 +76,7 @@ fs.removeAsync(config.screenshotRoot)
 })
 .then(function() {
   return upload({
-    project: config.project,
+    project: config.projectId,
     sha: branchInfo.sha,
     browser: config.browser
   });
