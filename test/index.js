@@ -49,9 +49,9 @@ fs.removeAsync(config.screenshotRoot)
 
   console.log('Currently at', branchInfo.branch, branchInfo.sha);
 
-  if (branchInfo.branch !== 'master') {
-    return gitInfo.getCommonAncestor(branchInfo.sha, 'master')
-    .then(function(ancestor) {
+  return gitInfo.getCommonAncestor(branchInfo.sha, 'master')
+  .then(function(ancestor) {
+    if (ancestor !== branchInfo.sha) {
       console.log('diffing against', ancestor);
       return startBuild({
         project: config.project,
@@ -62,8 +62,8 @@ fs.removeAsync(config.screenshotRoot)
       .then(function(build) {
         console.log('Build started', build.build);
       });
-    });
-  }
+    }
+  });
 })
 .then(function() {
   var client = webdriverio.remote(capabilities);
