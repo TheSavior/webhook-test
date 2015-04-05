@@ -65,7 +65,7 @@ fs.removeAsync(config.screenshotRoot)
           numBrowsers: 1
         })
         .then(function(build) {
-          console.log('Build started', build.build);
+          console.log('Build started', build);
         });
     });
   });
